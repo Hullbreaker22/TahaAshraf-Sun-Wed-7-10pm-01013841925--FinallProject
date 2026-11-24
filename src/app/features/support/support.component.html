@@ -1,0 +1,232 @@
+<section class="min-h-screen bg-linear-to-b from-emerald-50/60 via-white to-gray-50/80 pb-20">
+  <div class="relative overflow-hidden border-b border-emerald-100 bg-white">
+    <div class="pointer-events-none absolute -top-24 right-10 h-64 w-64 rounded-full bg-emerald-200/30 blur-3xl"></div>
+    <div class="pointer-events-none absolute -bottom-24 left-10 h-64 w-64 rounded-full bg-lime-200/25 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-5xl px-4 py-12 text-center sm:px-6 sm:py-16">
+      <div class="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-semibold text-emerald-700">
+        <i class="fa-solid fa-headset text-[#16a249]" aria-hidden="true"></i>
+        <span>FreshCart Help Center</span>
+      </div>
+
+      <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+        How can we help you today?
+      </h1>
+      <p class="mx-auto mt-3 max-w-xl text-sm text-gray-500 sm:text-base">
+        Find quick answers about orders, delivery slots, returns, or send a message directly to our support team.
+      </p>
+
+      <div class="mx-auto mt-7 max-w-xl">
+        <div class="relative">
+          <input
+            type="text"
+            [value]="searchQuery()"
+            (input)="onSearchInput($event)"
+            placeholder="Search help topics (e.g., track order, delivery, refund)..."
+            class="w-full rounded-full border border-gray-200 bg-gray-50/70 py-3.5 pl-5 pr-12 text-sm text-gray-800 shadow-sm transition focus:border-[#16a249] focus:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-500/15"
+          />
+          <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+            <i class="fa-solid fa-magnifying-glass text-sm" aria-hidden="true"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto mt-10 max-w-6xl px-4 sm:px-6">
+    <div class="grid gap-4 sm:grid-cols-3">
+      <a
+        href="#ticket-form"
+        class="group rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-md"
+      >
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-[#16a249] transition group-hover:bg-[#16a249] group-hover:text-white">
+          <i class="fa-solid fa-envelope-open-text text-lg" aria-hidden="true"></i>
+        </div>
+        <h2 class="mt-4 text-base font-bold text-gray-900">Send a Support Ticket</h2>
+        <p class="mt-1 text-xs leading-relaxed text-gray-500">
+          Best for order IDs, item issues, or detailed requests. Typical reply within a few hours.
+        </p>
+      </a>
+
+      <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-[#16a249]">
+          <i class="fa-solid fa-clock text-lg" aria-hidden="true"></i>
+        </div>
+        <h2 class="mt-4 text-base font-bold text-gray-900">Support Hours</h2>
+        <p class="mt-1 text-xs leading-relaxed text-gray-500">
+          Daily from 9:00 AM – 11:00 PM to keep your fresh deliveries running smoothly.
+        </p>
+      </div>
+
+      <a
+        routerLink="/orders"
+        class="group rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-md"
+      >
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-[#16a249] transition group-hover:bg-[#16a249] group-hover:text-white">
+          <i class="fa-solid fa-box-open text-lg" aria-hidden="true"></i>
+        </div>
+        <h2 class="mt-4 text-base font-bold text-gray-900">Check Your Orders</h2>
+        <p class="mt-1 text-xs leading-relaxed text-gray-500">
+          Review past purchases, check order progress, or find your order reference quickly.
+        </p>
+      </a>
+    </div>
+
+    <!-- Main Content: FAQ + Ticket Form -->
+    <div class="mt-10 grid gap-8 lg:grid-cols-12">
+      <!-- FAQ Section -->
+      <div class="lg:col-span-7">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="text-xl font-bold text-gray-900">Frequently Asked Questions</h2>
+
+          <!-- Category Pills -->
+          <div class="flex flex-wrap gap-1.5">
+            @for (cat of categories; track cat) {
+              <button
+                type="button"
+                (click)="selectedCategory.set(cat)"
+                class="cursor-pointer rounded-full px-3.5 py-1.5 text-xs font-semibold transition"
+                [class]="
+                  selectedCategory() === cat
+                    ? 'bg-[#16a249] text-white shadow-sm'
+                    : 'bg-white text-gray-600 border border-gray-200 hover:border-emerald-300 hover:text-[#16a249]'
+                "
+              >
+                {{ cat }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="mt-5 space-y-3">
+          @for (faq of filteredFaqs(); track faq.id) {
+            <div class="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-xs transition hover:border-emerald-200">
+              <button
+                type="button"
+                (click)="toggleFaq(faq.id)"
+                class="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left"
+              >
+                <div>
+                  <span class="mb-1 inline-block rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700">
+                    {{ faq.category }}
+                  </span>
+                  <p class="text-sm font-bold text-gray-900">{{ faq.question }}</p>
+                </div>
+
+                <i
+                  class="fa-solid fa-chevron-down shrink-0 text-xs text-gray-400 transition-transform duration-200"
+                  [class.rotate-180]="openFaqId() === faq.id"
+                  aria-hidden="true"
+                ></i>
+              </button>
+
+              @if (openFaqId() === faq.id) {
+                <div class="border-t border-gray-100 bg-gray-50/60 px-5 py-4 text-sm leading-relaxed text-gray-600">
+                  {{ faq.answer }}
+                </div>
+              }
+            </div>
+          } @empty {
+            <div class="rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center">
+              <p class="text-sm font-semibold text-gray-700">No matching questions found</p>
+              <p class="mt-1 text-xs text-gray-500">
+                Try clearing your search or send us a message using the form beside.
+              </p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div id="ticket-form" class="lg:col-span-5">
+        <div class="rounded-3xl border border-emerald-100 bg-white p-6 shadow-lg shadow-emerald-950/5 sm:p-7">
+          <h2 class="text-xl font-bold text-gray-900">Contact Support</h2>
+          <p class="mt-1 text-xs text-gray-500">
+            Tell us what happened and we’ll get back to you as soon as possible.
+          </p>
+
+          @if (submittedTicketId(); as ticketId) {
+            <div class="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs text-emerald-900">
+              <p class="font-bold">Ticket submitted (#{{ ticketId }})</p>
+              <p class="mt-1 text-emerald-800">
+                Thanks for reaching out! Our team has received your request.
+              </p>
+            </div>
+          }
+
+          <form [formGroup]="supportForm" (ngSubmit)="submitSupportTicket()" class="mt-5 space-y-4">
+            <div>
+              <label class="mb-1 block text-xs font-semibold text-gray-700">Full Name</label>
+              <input
+                type="text"
+                formControlName="fullName"
+                placeholder="Taha Ahmed"
+                class="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3.5 py-2.5 text-sm transition focus:border-[#16a249] focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+              />
+              @if (hasError('fullName', 'required') || hasError('fullName', 'minlength')) {
+                <p class="mt-1 text-xs text-red-600">Please enter your name.</p>
+              }
+            </div>
+
+            <div>
+              <label class="mb-1 block text-xs font-semibold text-gray-700">Email Address</label>
+              <input
+                type="email"
+                formControlName="email"
+                placeholder="you@example.com"
+                class="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3.5 py-2.5 text-sm transition focus:border-[#16a249] focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+              />
+              @if (hasError('email', 'required') || hasError('email', 'email')) {
+                <p class="mt-1 text-xs text-red-600">Please enter a valid email address.</p>
+              }
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label class="mb-1 block text-xs font-semibold text-gray-700">Topic</label>
+                <select
+                  formControlName="topic"
+                  class="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3.5 py-2.5 text-sm transition focus:border-[#16a249] focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                >
+                  <option value="Order Issue">Order Issue</option>
+                  <option value="Delivery & Slots">Delivery & Slots</option>
+                  <option value="Refund & Return">Refund & Return</option>
+                  <option value="Account & Payment">Account & Payment</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="mb-1 block text-xs font-semibold text-gray-700">Order ID (Optional)</label>
+                <input
+                  type="text"
+                  formControlName="orderId"
+                  placeholder="#ORD-1024"
+                  class="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3.5 py-2.5 text-sm transition focus:border-[#16a249] focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-1 block text-xs font-semibold text-gray-700">Message</label>
+              <textarea
+                rows="4"
+                formControlName="message"
+                placeholder="Describe your question or issue..."
+                class="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-3.5 py-2.5 text-sm transition focus:border-[#16a249] focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+              ></textarea>
+              @if (hasError('message', 'required') || hasError('message', 'minlength')) {
+                <p class="mt-1 text-xs text-red-600">Please write at least 10 characters.</p>
+              }
+            </div>
+
+            <button
+              type="submit"
+              class="w-full cursor-pointer rounded-full bg-[#16a249] py-3 text-sm font-semibold text-white shadow-md shadow-emerald-600/20 transition hover:bg-[#16843f] active:scale-[0.99]"
+            >
+              Submit Request
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

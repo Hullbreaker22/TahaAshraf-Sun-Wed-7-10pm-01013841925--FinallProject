@@ -1,0 +1,228 @@
+<main class="min-h-screen bg-[#f8f9fa]">
+  <div class="mx-auto max-w-[1680px] px-3 py-[18px] sm:px-[18px] sm:py-[26px]">
+    <header class="mb-6.5">
+      <nav class="mb-4.5 flex items-center gap-[9px] text-sm text-[#9299a5]" aria-label="Breadcrumb">
+        <a class="transition-colors hover:text-[#0ca34a]" routerLink="/home">Home</a>
+        <span aria-hidden="true">/</span>
+        <span class="font-medium text-[#111827]" aria-current="page">Shopping Cart</span>
+      </nav>
+      <div class="flex items-center gap-[14px]">
+        <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#11a34a] text-[19px] text-white">
+          <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+        </div>
+        <div>
+          <h1 class="m-0 text-[25px] font-bold leading-tight text-[#111827] sm:text-[30px]">Shopping Cart</h1>
+          <p class="mt-[7px] text-sm text-[#778191]">
+            You have
+            <strong class="font-semibold text-[#0ca34a]">{{ totalItems() }} {{ totalItems() === 1 ? 'item' : 'items' }}</strong>
+            in your cart
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid grid-cols-1 items-start gap-6 min-[901px]:grid-cols-[minmax(0,2fr)_minmax(340px,0.96fr)] min-[901px]:gap-8">
+      <section class="min-w-0" aria-label="Shopping cart items">
+        @if (totalItems()) {
+          @if (isAuthenticated) {
+            @for (item of savedCart(); track item._id) {
+            <article class="relative mb-4 flex min-h-[150px] items-center gap-3 overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5 min-[601px]:min-h-[205px] min-[601px]:gap-6">
+              <div class="flex h-[92px] w-[82px] flex-none items-center justify-center overflow-hidden rounded-[13px] border border-[#edf0f2] bg-[#f8f9fa] min-[601px]:h-32 min-[601px]:w-32">
+                <img class="h-4/5 w-[76%] object-contain" [src]="item.product.imageCover" [alt]="item.product.title" />
+              </div>
+
+              <div class="flex min-w-0 flex-1 flex-col gap-3 py-px pr-9 min-[601px]:flex-row min-[601px]:items-center min-[601px]:gap-6 min-[601px]:pr-0">
+                <div class="min-w-0 flex-1 self-stretch">
+                  <h2 class="mb-[6px] text-base font-semibold leading-[1.35] text-[#111827] min-[601px]:mb-[10px] min-[601px]:text-lg">
+                    {{ item.product.title }}
+                  </h2>
+                  <span class="inline-block rounded-full bg-[#effdf5] px-[11px] py-1 text-xs leading-[1.35] text-[#079447]">
+                    {{ item.product.category.name }}
+                  </span>
+                  <p class="my-2 text-base font-bold text-[#0ca34a] min-[601px]:my-3 min-[601px]:mb-5 min-[601px]:text-lg">
+                    {{ item.price }} EGP
+                  </p>
+
+                  <div
+                    class="inline-flex min-h-1.5 items-center gap-2 rounded-xl border border-[#e3e7eb] p-0.75"
+                    [attr.aria-label]="'Quantity for ' + item.product.title"
+                  >
+                    <button
+                      class="flex h-8 w-8 items-center justify-center rounded-[9px] border border-[#e6e9ed] bg-white text-xl leading-none text-[#697586] shadow-sm enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                      type="button"
+                      aria-label="Decrease quantity"
+                      [disabled]="item.count <= 1"
+                      (click)="changeQuantity(item, -1)"
+                    >−</button>
+                    <span class="min-w-7.5 text-center text-base font-semibold text-[#111827]" aria-live="polite">
+                      {{ item.count }}
+                    </span>
+                    <button
+                      class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-[9px] border-0 bg-[#11a34a] text-xl leading-none text-white"
+                      type="button"
+                      aria-label="Increase quantity"
+                      (click)="changeQuantity(item, 1)"
+                    >+</button>
+                  </div>
+                </div>
+
+                <div class="text-left min-[601px]:self-end min-[601px]:pb-1 min-[601px]:text-right">
+                  <span class="mr-1.5 text-xs text-[#9299a5] min-[601px]:mr-0 min-[601px]:mb-0.5 min-[601px]:block">Total</span>
+                  <strong class="whitespace-nowrap text-base text-[#111827] min-[601px]:text-xl">
+                    {{ item.price * item.count }}
+                    <small class="text-xs font-normal text-[#8b929e]">EGP</small>
+                  </strong>
+                </div>
+              </div>
+
+              <button
+                class="absolute right-4 top-4 flex h-9.5 w-9 cursor-pointer items-center justify-center rounded-xl border border-[#ffc9cc] bg-[#fff5f5] text-[#ff454f] hover:bg-[#ffe8e9] min-[601px]:static min-[601px]:h-[42px] min-[601px]:w-10 min-[601px]:self-end"
+                type="button"
+                [attr.aria-label]="'Remove ' + item.product.title + ' from cart'"
+                (click)="deleteCartItem(item)"
+              >
+                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+              </button>
+            </article>
+          }
+          } @else {
+            @for (item of localCart(); track item._id) {
+              <article class="relative mb-4 flex min-h-[150px] items-center gap-3 overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5 min-[601px]:min-h-[205px] min-[601px]:gap-6">
+                <div class="flex h-[92px] w-[82px] flex-none items-center justify-center overflow-hidden rounded-[13px] border border-[#edf0f2] bg-[#f8f9fa] min-[601px]:h-32 min-[601px]:w-32">
+                  <img class="h-4/5 w-[76%] object-contain" [src]="item.product.imageCover" [alt]="item.product.title" />
+                </div>
+
+                <div class="flex min-w-0 flex-1 flex-col gap-3 py-px pr-9 min-[601px]:flex-row min-[601px]:items-center min-[601px]:gap-6 min-[601px]:pr-0">
+                  <div class="min-w-0 flex-1 self-stretch">
+                    <h2 class="mb-[6px] text-base font-semibold leading-[1.35] text-[#111827] min-[601px]:mb-[10px] min-[601px]:text-lg">
+                      {{ item.product.title }}
+                    </h2>
+                    <span class="inline-block rounded-full bg-[#effdf5] px-[11px] py-1 text-xs leading-[1.35] text-[#079447]">
+                      {{ item.product.category.name }}
+                    </span>
+                    <p class="my-2 text-base font-bold text-[#0ca34a] min-[601px]:my-3 min-[601px]:mb-5 min-[601px]:text-lg">
+                      {{ item.price }} EGP
+                    </p>
+
+                    <div
+                      class="inline-flex min-h-[42px] items-center gap-2 rounded-xl border border-[#e3e7eb] p-[3px]"
+                      [attr.aria-label]="'Quantity for ' + item.product.title"
+                    >
+                      <button
+                        class="flex h-8 w-8 items-center justify-center rounded-[9px] border border-[#e6e9ed] bg-white text-xl leading-none text-[#697586] shadow-sm enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                        type="button"
+                        aria-label="Decrease quantity"
+                        [disabled]="item.count <= 1"
+                        (click)="changeProductQuantity(item, -1)"
+                      >−</button>
+                      <span class="min-w-[30px] text-center text-base font-semibold text-[#111827]" aria-live="polite">
+                        {{ item.count }}
+                      </span>
+                      <button
+                        class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-[9px] border-0 bg-[#11a34a] text-xl leading-none text-white"
+                        type="button"
+                        aria-label="Increase quantity"
+                        (click)="changeProductQuantity(item, 1)"
+                      >+</button>
+                    </div>
+                  </div>
+
+                  <div class="text-left min-[601px]:self-end min-[601px]:pb-1 min-[601px]:text-right">
+                    <span class="mr-1.5 text-xs text-[#9299a5] min-[601px]:mr-0 min-[601px]:mb-0.5 min-[601px]:block">Total</span>
+                    <strong class="whitespace-nowrap text-base text-[#111827] min-[601px]:text-xl">
+                      {{ item.price * item.count }}
+                      <small class="text-xs font-normal text-[#8b929e]">EGP</small>
+                    </strong>
+                  </div>
+                </div>
+
+                <button
+                  class="absolute right-4 top-4 flex h-9.5 w-9 cursor-pointer items-center justify-center rounded-xl border border-[#ffc9cc] bg-[#fff5f5] text-[#ff454f] hover:bg-[#ffe8e9] min-[601px]:static min-[601px]:h-[42px] min-[601px]:w-10 min-[601px]:self-end"
+                  type="button"
+                  [attr.aria-label]="'Remove ' + item.product.title + ' from cart'"
+                  (click)="deleteCartItem(item)"
+                >
+                  <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                </button>
+              </article>
+            }
+          }
+
+          <div class="mt-[23px] flex items-start justify-between gap-4 border-t border-[#dedfe2] pt-[22px]">
+            <a
+              class="inline-flex items-center gap-1.5 text-xs font-medium text-[#00a548] no-underline transition-colors hover:text-[#087c3b] min-[601px]:gap-[10px] min-[601px]:text-sm"
+              routerLink="/home"
+            >
+              <span aria-hidden="true">←</span>
+              Continue Shopping
+            </a>
+            <button
+              class="inline-flex cursor-pointer items-center gap-1.5 border-0 bg-transparent text-xs font-medium text-[#9299a5] transition-colors hover:text-[#087c3b] min-[601px]:gap-[10px] min-[601px]:text-sm"
+              type="button"
+              (click)="clearCart()"
+            >
+              <i class="fa-solid fa-trash text-xs" aria-hidden="true"></i>
+              Clear all items
+            </button>
+          </div>
+        } @else {
+          <div class="flex min-h-[360px] flex-col items-center justify-center rounded-[17px] border border-[#e8eaed] bg-white p-8 text-center shadow-[0_1px_2px_rgba(16,24,40,0.1)]">
+            <i class="fa-solid fa-cart-shopping text-4xl text-[#11a34a]" aria-hidden="true"></i>
+            <h2 class="mt-4 mb-1.5 text-[22px] font-bold text-[#111827]">Your cart is empty</h2>
+            <p class="mb-5 text-[#778191]">Browse our products and add something you love.</p>
+            <a class="text-sm font-medium text-[#00a548] no-underline hover:text-[#087c3b]" routerLink="/home">Continue Shopping</a>          
+          </div>
+        }
+      </section>
+
+      @if (totalItems()) {
+        <aside class="overflow-hidden rounded-[17px] border border-[#e8eaed] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.1)]" aria-labelledby="summary-title">
+          <h2 id="summary-title" class="m-0 bg-[#111827] px-5 py-[21px] text-lg font-bold text-white">Order Summary</h2>
+          <div class="p-[18px] min-[601px]:p-5">
+            <div class="flex items-center justify-between gap-3 text-base text-[#4b5565]">
+              <span>Subtotal ({{ totalItems() }} items)</span>
+              <span>{{ subtotal() }} EGP</span>
+            </div>
+            <div class="mt-[18px] flex items-center justify-between gap-3 text-base text-[#4b5565]">
+              <span>Shipping</span>
+              <span class="text-right text-[#0ca34a]">Calculated at checkout</span>
+            </div>
+            <div class="mt-5 flex items-center justify-between gap-3 border-t border-[#e1e4e8] pt-[18px] text-base font-bold text-[#364152]">
+              <strong>Estimated Total</strong>
+              <strong class="whitespace-nowrap text-[#0ca34a]">{{ subtotal() }} EGP</strong>
+            </div>
+
+            @if (isAuthenticated) {
+              <a
+                class="mt-[34px] flex min-h-[52px] items-center justify-center gap-[10px] rounded-xl bg-[#11a34a] text-base font-bold text-white no-underline transition-colors hover:bg-[#0b8d3e]"
+                routerLink="/checkout"
+              >
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                Proceed to Checkout
+              </a>
+            } @else {
+              <a
+                class="mt-[34px] flex min-h-[52px] items-center justify-center gap-[10px] rounded-xl bg-[#11a34a] text-base font-bold text-white no-underline transition-colors hover:bg-[#0b8d3e]"
+                routerLink="/login"
+              >
+                <i class="fa-solid fa-user" aria-hidden="true"></i>
+                Login to Checkout
+              </a>
+              <p class="mt-3 mb-[17px] text-center text-xs text-[#9299a5]">
+                Don't have an account?
+                <a class="font-semibold text-[#0ca34a] no-underline" routerLink="/register">Sign up</a>
+              </p>
+            }
+
+            <ul class="m-0 grid list-none gap-1.75 border-t border-[#edf0f2] pt-3.75 pl-0 text-xs text-[#778191]">
+              <li class="flex items-center gap-1.5"><span class="text-[#0ca34a]">✓</span> Your cart items will be saved</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#0ca34a]">✓</span> Track your orders easily</li>
+              <li class="flex items-center gap-1.5"><span class="text-[#0ca34a]">✓</span> Access exclusive member deals</li>
+            </ul>
+          </div>
+
+        </aside>
+      }
+    </div>
+  </div>
+</main>

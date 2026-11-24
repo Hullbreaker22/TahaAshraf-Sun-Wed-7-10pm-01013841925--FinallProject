@@ -1,0 +1,90 @@
+<section class="bg-gray-50">
+    <div class="hero-slider">
+        <swiper-container
+            #heroSwiper
+            slides-per-view="1"
+            pagination="true"
+            pagination-clickable="true"
+            loop="true"
+            autoplay="true"
+            autoplay-delay="5000"
+            autoplay-disable-on-interaction="false"
+            class="hero-swiper"
+            ngSkipHydration
+            
+        >
+        @for (slide of slides; track slide.title) {
+            <swiper-slide>
+                <div class="hero-slide">
+                    <img
+                        [src]="slide.image"
+                        alt=""
+                        class="hero-slide__image"
+                    />
+                    <div class="hero-slide__overlay"></div>
+                    <div class="hero-slide__content">
+                        <div class="hero-slide__copy">
+                            <h1 class="hero-slide__title">
+                                {{ slide.title }}
+                            </h1>
+                            <p class="hero-slide__description">{{ slide.description }}</p>
+                            <div class="hero-slide__actions">
+                                <a
+                                    routerLink="/shop"
+                                    class="hero-slide__button hero-slide__button--primary"
+                                >
+                                    Shop Now
+                                </a>
+                                <a
+                                    routerLink="/shop"
+                                    class="hero-slide__button hero-slide__button--secondary"
+                                >
+                                    View Deals
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </swiper-slide>
+        }
+        </swiper-container>
+        <button
+            type="button"
+            aria-label="Previous slide"
+            (click)="previousSlide()"
+            class="hero-slider__arrow hero-slider__arrow--previous"
+        >
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button
+            type="button"
+            aria-label="Next slide"
+            (click)="nextSlide()"
+            class="hero-slider__arrow hero-slider__arrow--next"
+        >
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <div class="container mx-auto mt-16">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            @for (item of theList; track item.content) {
+            <div class="flex items-center gap-4 bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div
+                    class="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+                    [style.background-color]="item.bgcolor">
+                    <i [class]="item.icon" [style.color]="item.iconColor" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <h2 class="font-semibold text-gray-800 text-sm">
+                        {{ item.content }}
+                    </h2>
+                    <h3 class="text-xs text-gray-500">
+                        {{ item.comment }}
+                    </h3>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>

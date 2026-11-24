@@ -1,0 +1,333 @@
+<div class="hidden xl:block text-sm border-b border-gray-100">
+    <div class="container px-4 mx-auto ">
+        <div class="flex h-10 justify-between items-center ">
+            <div class="flex gap-6 items-center  text-gray-500">
+                <h2 class="flex items-center  gap-2">
+                    <i class="fa-solid fa-truck text-lighter"></i>
+                    Free Shipping on Orders 500 EGP
+                </h2>
+                <h2 class="flex items-center font-semibold gap-2">
+                    <i class="fa-solid fa-gift text-lighter"></i>
+                    New Arrivals Daily
+                </h2>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-4 text-gray-500">
+                    <a href="tel:+18001234567"
+                        class="flex items-center cursor-pointer gap-1.5 hover:text-emerald-600 transition-colors">
+                        <i class="fa-solid fa-phone text-current text-[.75rem]"></i>
+                        +1 (800) 123-4567
+                    </a>
+                    <a href="mailto:support@freshcart.com"
+                        class="flex items-center cursor-pointer gap-1.5 hover:text-emerald-600 transition-colors">
+                        <i class="fa-regular fa-envelope text-current text-[.75rem]"></i>
+                        support@freshcart.com
+                    </a>
+                </div>
+                <div class="flex items-center gap-4">
+                    @if (!savedtoken()) {
+                    <a routerLink="/login"
+                        class="flex items-center gap-1.5 font-normal text-gray-600 hover:text-emerald-600 transition-colors">
+                        <i class="fa-regular fa-user text-current text-[.75rem]"></i>
+                        Sign in
+                    </a>
+
+                    <a routerLink="/register"
+                        class="flex items-center gap-1.5 font-normal text-gray-600 hover:text-emerald-600 transition-colors">
+                        <i class="fa-solid fa-user-plus text-current text-[.75rem]"></i>
+                        Sign Up
+                    </a>
+                    } @else {
+                    <span class="flex items-center gap-2 border-l border-gray-200 pl-4 text-gray-600">
+                        <i class="fa-regular fa-user text-current"></i>
+                        {{User().name}}
+                    </span>
+                    <button type="button" (click)="logout()"
+                        class="flex cursor-pointer items-center gap-2 border-l border-gray-200 pl-4 text-gray-600 transition-colors hover:text-emerald-600">
+                        <i class="fa-solid fa-right-from-bracket text-current"></i>
+                        Sign Out
+                    </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="sticky top-0 z-40 bg-white shadow-sm">
+    <div class="bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16 lg:h-18 gap-4 lg:gap-8">
+                <a routerLink="/home">
+                    <img src="/assets/images/ChartImage.png" alt="chartImage" class="h-6 lg:h-8 w-auto">
+                </a>
+                <form [formGroup]="searchForm" (ngSubmit)="submitform()" class="hidden xl:flex flex-1 max-w-2xl">
+                    <div class="relative w-full">
+                        <input formControlName="search" type="text"
+                            placeholder="Search for products, brands and more..."
+                            class="w-full px-5 py-3 pr-12 rounded-full border border-gray-200 bg-gray-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all text-sm">
+                        <button type="submit"
+                            class="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 z-20 cursor-pointer rounded-full bg-emerald-600 text-white flex items-center justify-center hover:bg-emerald-700 transition-colors">
+                            <i class="fa-solid fa-magnifying-glass text-white text-[.8125rem]"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="hidden xl:flex items-center gap-6">
+                    <a routerLink="/home" class="text-gray-700 hover:text-emerald-600 font-medium transition-colors">
+                        Home
+                    </a>
+                    <a routerLink="/shop" class="text-gray-700 hover:text-emerald-600 font-medium transition-colors">
+                        Shop
+                    </a>
+                    <div class="relative group">
+                        <button
+                            class="flex items-center cursor-pointer gap-1.5 text-gray-700 hover:text-emerald-600 font-medium transition-colors py-2">
+                            <i
+                                class="fa-solid fa-angle-down text-[.625rem] transition-transform group-hover:rotate-180"></i>
+                            Categories
+                        </button>
+                        <div
+                            class="absolute top-full left-0 pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                            <div class="bg-white border min-w-50 border-gray-100 rounded-xl shadow-xl py-2 ">
+                                <a routerLink="/AllCategories"
+                                    class="block px-4 py-2.5 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 transition-colors">
+                                    All Categories
+                                </a>
+                                @for(item of CatList(); track item._id){
+                                <a [routerLink]="['/categoryDetails',item._id]"
+                                    class="block px-4 py-2.5 text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 transition-colors">
+                                    {{item.name}}
+                                </a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <a routerLink="/brands" class="text-gray-700 hover:text-emerald-600 font-medium transition-colors">
+                        Brands
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-1 lg:gap-2">
+                    <a routerLink="/Support"
+                        class="hidden xl:flex items-center gap-2 pr-3 mr-2 border-r border-gray-200 hover:opacity-80 transition-opacity">
+                        <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center ">
+                            <i class="fa-solid fa-headset text-lighter"></i>
+                        </div>
+                        <div class="text-xs">
+                            <h2 class="text-gray-400">
+                                Support
+                            </h2>
+                            <h2 class="font-semibold text-gray-700">
+                                24/7 Help
+                            </h2>
+                        </div>
+                    </a>
+                    <a routerLink="/wishlist"
+                        class="relative rounded-full p-2.5 transition-colors group hover:bg-gray-100"
+                        [attr.aria-label]="'Wishlist, ' + totalWishlistItems() + ' items'">
+                        <i
+                            class="fa-regular fa-heart text-[#6A7282] text-[20px] group-hover:text-emerald-400 transition-all duration-200"></i>
+                        <span
+                            class="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-rose-500 px-1 text-[10px] font-semibold leading-none text-white">
+                            {{ totalWishlistItems() }}
+                        </span>
+                    </a>
+                    <a routerLink="/cart" class="relative rounded-full p-2.5 transition-colors group hover:bg-gray-100"
+                        [attr.aria-label]="'Cart, ' + totalCartItems() + ' items'">
+                        <i
+                            class="fa-solid fa-cart-shopping text-[#6A7282] text-[20px] group-hover:text-emerald-400 transition-all duration-200"></i>
+                        <span
+                            class="absolute -right-0.5 -top-0.5 grid h-5 min-w-5 place-items-center rounded-full bg-emerald-600 px-1 text-[10px] font-semibold leading-none text-white">
+                            {{ totalCartItems() }}
+                        </span>
+                    </a>
+
+                    @if (savedtoken()) {
+                    <div class="relative">
+                        <button type="button" (click)="toggleUserMenu($event)"
+                            class="rounded-full p-2.5 transition-colors hover:bg-gray-100" aria-label="Account menu"
+                            aria-controls="account-options" [attr.aria-expanded]="userMenuOpen()">
+                            <i class="fa-regular fa-circle-user text-[20px] text-[#6A7282] transition-colors hover:text-emerald-500"
+                                aria-hidden="true"></i>
+                        </button>
+
+                        @if (userMenuOpen()) {
+                        <div id="account-options"
+                            class="absolute right-0 top-full z-50 mt-2 w-48 rounded-xl border border-gray-100 bg-white py-2 shadow-xl"
+                            (click)="$event.stopPropagation()">
+                            <a routerLink="/myProfile" (click)="closeUserMenu()"
+                                class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700">
+                                <i class="fa-regular fa-user w-4 text-gray-500" aria-hidden="true"></i>
+                                My Profile
+                            </a>
+                            <a routerLink="/orders" (click)="closeUserMenu()"
+                                class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700">
+                                <i class="fa-solid fa-box-open w-4 text-gray-500" aria-hidden="true"></i>
+                                My Orders
+                            </a>
+                            <button type="button" (click)="logout()"
+                                class="flex w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left text-sm text-gray-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700">
+                                <i class="fa-solid fa-right-from-bracket w-4 text-gray-500" aria-hidden="true"></i>
+                                Sign Out
+                            </button>
+                        </div>
+                        }
+                    </div>
+                    } @else {
+                    <a routerLink="/login"
+                        class="hidden xl:flex cursor-pointer items-center gap-2 ml-2 px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors shadow-sm shadow-emerald-600/20">
+                        <i class="fa-regular fa-user text-current"></i>
+                        Sign in
+                    </a>
+                    }
+                    <button type="button" (click)="toggleMobileMenu($event)"
+                        class="ml-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-gray-100 hover:text-emerald-600 xl:hidden"
+                        [attr.aria-expanded]="mobileMenuOpen()" aria-controls="mobile-navigation"
+                        [attr.aria-label]="mobileMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'">
+                        <i [class]="mobileMenuOpen() ? 'fa-solid fa-xmark text-xl' : 'fa-solid fa-bars text-xl'"
+                            aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                @if (mobileMenuOpen()) {
+                <div id="mobile-navigation" class="fixed inset-0 z-50 xl:hidden" (click)="closeMobileMenu()">
+                    <div class="absolute inset-0 bg-slate-950/45 backdrop-blur-[2px]" aria-hidden="true"></div>
+                    <aside
+                        class="absolute inset-y-0 right-0 flex w-[min(90vw,26rem)] flex-col overflow-hidden bg-white shadow-2xl"
+                        role="dialog" aria-modal="true" aria-label="Navigation menu" (click)="$event.stopPropagation()">
+                        <header
+                            class="relative overflow-hidden bg-linear-to-br from-emerald-700 via-emerald-600 to-green-500 px-6 pb-6 pt-7 text-white">
+                            <div class="absolute -right-10 -top-14 h-40 w-40 rounded-full border-24 border-white/10"
+                                aria-hidden="true"></div>
+                            <div class="relative flex items-start justify-between gap-4">
+                                <div>
+                                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100">
+                                        FreshCart</p>
+                                    <h2 class="mt-2 text-2xl font-bold">
+                                        {{ savedtoken() ? 'Hello, ' + (User().name || 'there') : 'Explore FreshCart' }}
+                                    </h2>
+                                    <p class="mt-1 text-sm text-emerald-50/90">Everything you need, all in one place.
+                                    </p>
+                                </div>
+                                <button type="button" (click)="closeMobileMenu()" aria-label="Close navigation menu"
+                                    class="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full bg-white/15 text-white transition hover:bg-white/25">
+                                    <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </header>
+
+                        <div class="flex-1 space-y-6 overflow-y-auto px-5 py-5">
+                            <form [formGroup]="mobileSearchForm" (ngSubmit)="submitMobileSearch()">
+                                <label class="sr-only" for="mobile-search">Search products</label>
+                                <div class="relative">
+                                    <input id="mobile-search" formControlName="search" type="search"
+                                        placeholder="Search products, brands..."
+                                        class="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-12 text-sm outline-none transition focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10">
+                                    <button type="submit" aria-label="Search"
+                                        class="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg bg-emerald-600 text-white transition hover:bg-emerald-700">
+                                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <nav aria-label="Mobile navigation">
+                                <p class="mb-3 px-1 text-xs font-bold uppercase tracking-wider text-slate-400">Explore
+                                </p>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <a routerLink="/home" (click)="closeMobileMenu()"
+                                        class="group flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/80 p-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700">
+                                        <span
+                                            class="grid h-9 w-9 place-items-center rounded-lg bg-white text-emerald-600 shadow-sm"><i
+                                                class="fa-solid fa-house" aria-hidden="true"></i></span>
+                                        Home
+                                    </a>
+                                    <a routerLink="/shop" (click)="closeMobileMenu()"
+                                        class="group flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/80 p-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700">
+                                        <span
+                                            class="grid h-9 w-9 place-items-center rounded-lg bg-white text-emerald-600 shadow-sm"><i
+                                                class="fa-solid fa-store" aria-hidden="true"></i></span>
+                                        Shop
+                                    </a>
+                                    <a routerLink="/brands" (click)="closeMobileMenu()"
+                                        class="group flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/80 p-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700">
+                                        <span
+                                            class="grid h-9 w-9 place-items-center rounded-lg bg-white text-emerald-600 shadow-sm"><i
+                                                class="fa-solid fa-tags" aria-hidden="true"></i></span>
+                                        Brands
+                                    </a>
+                                    <a routerLink="/Support" (click)="closeMobileMenu()"
+                                        class="group flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/80 p-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700">
+                                        <span
+                                            class="grid h-9 w-9 place-items-center rounded-lg bg-white text-emerald-600 shadow-sm"><i
+                                                class="fa-solid fa-headset" aria-hidden="true"></i></span>
+                                        Support
+                                    </a>
+                                </div>
+                            </nav>
+
+                            <section aria-labelledby="mobile-categories-title">
+                                <div class="mb-3 flex items-center justify-between">
+                                    <h3 id="mobile-categories-title"
+                                        class="px-1 text-xs font-bold uppercase tracking-wider text-slate-400">
+                                        Categories</h3>
+                                    <a routerLink="/AllCategories" (click)="closeMobileMenu()"
+                                        class="text-xs font-semibold text-emerald-700 hover:text-emerald-800">View
+                                        all</a>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    @for (item of CatList(); track item._id) {
+                                    <a [routerLink]="['/categoryDetails', item._id]" (click)="closeMobileMenu()"
+                                        class="rounded-full border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-600 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700">
+                                        {{ item.name }}
+                                    </a>
+                                    }
+                                </div>
+                            </section>
+                        </div>
+
+                        <footer class="border-t border-slate-100 bg-slate-50/80 p-5">
+                            @if (savedtoken()) {
+                            <div class="mb-3 flex items-center gap-3 rounded-xl bg-white p-3">
+                                <span
+                                    class="grid h-10 w-10 place-items-center rounded-full bg-emerald-100 text-emerald-700">
+                                    <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                </span>
+                                <div class="min-w-0">
+                                    <p class="truncate text-sm font-semibold text-slate-800">{{ User().name }}</p>
+                                    <p class="text-xs text-slate-500">Your account</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <a routerLink="/myProfile" (click)="closeMobileMenu()"
+                                    class="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-white px-3 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50">
+                                    <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                    My Profile
+                                </a>
+                                <button type="button" (click)="logout()"
+                                    class="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-slate-900 px-3 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
+                                    <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+                                    Sign Out
+                                </button>
+                            </div>
+                            } @else {
+                            <div class="grid grid-cols-2 gap-3">
+                                <a routerLink="/login" (click)="closeMobileMenu()"
+                                    class="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-white px-3 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50">
+                                    Sign in
+                                </a>
+                                <a routerLink="/register" (click)="closeMobileMenu()"
+                                    class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-3 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">
+                                    <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+                                    Sign Up
+                                </a>
+                            </div>
+                            }
+                        </footer>
+                    </aside>
+                </div>
+                }
+            </div>
+        </div>
+    </div>

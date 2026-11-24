@@ -1,0 +1,96 @@
+<main class="min-h-[calc(100vh-4rem)] bg-white px-6 py-10 text-[#344054] sm:px-8 lg:py-12">
+  <div class="container mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+    
+    <section class="hidden flex-col justify-center lg:flex" aria-labelledby="login-welcome-title">
+      <div class="overflow-hidden rounded-xl border border-slate-100 bg-[#fffaf6] shadow-[0_8px_24px_rgba(16,24,40,0.10)]">
+      </div>
+
+      <img src="/assets/images/LoginImg.png" alt="" class="w-full h-104 object-cover rounded-2xl shadow-lg">
+
+      <div class="px-2 pt-6 text-center">
+        <h1 id="login-welcome-title" class="m-0 text-3xl font-bold leading-tight text-[#344054] sm:text-[34px]">
+          FreshCart - Your One-Stop Shop for Fresh Products
+        </h1>
+        <p class="mx-auto mb-0 mt-4 max-w-2xl text-xl leading-relaxed text-slate-600">
+          Join thousands of happy customers who trust FreshCart for their daily grocery needs
+        </p>
+        <ul class="mt-6 flex list-none flex-wrap justify-center gap-x-10 gap-y-3 p-0 text-base font-semibold text-slate-600">
+          <li class="flex items-center gap-2.5"><i class="fa-solid fa-truck text-green-600 text-lg" aria-hidden="true"></i>Free Delivery</li>
+          <li class="flex items-center gap-2.5"><i class="fa-solid fa-shield-halved text-green-600 text-lg" aria-hidden="true"></i>Secure Payment</li>
+          <li class="flex items-center gap-2.5"><i class="fa-solid fa-clock text-green-600 text-lg" aria-hidden="true"></i>24/7 Support</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mx-auto w-full max-w-160 rounded-2xl border border-slate-200 bg-white px-8 py-10 shadow-[0_8px_30px_rgba(16,24,40,0.09)] sm:px-12 sm:py-11" aria-labelledby="login-title">
+      <header class="mb-8 text-center">
+        <a class="inline-flex items-center gap-1.5 text-[32px] font-bold leading-none no-underline" href="/home" aria-label="FreshCart home">
+          <span class="text-green-600">Fresh</span><span class="text-[#344054]">Cart</span>
+        </a>
+        <h2 id="login-title" class="mb-0 mt-4 text-3xl font-bold leading-tight text-[#202b3c]">Welcome Back!</h2>
+        <p class="mb-0 mt-2 text-lg text-slate-600">Sign in to continue your fresh shopping experience</p>
+      </header>
+
+      <div class="grid gap-3.5" aria-label="Sign in with a social account">
+        <button class="inline-flex min-h-13 cursor-pointer items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white text-base font-semibold text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 shadow-sm" type="button">
+          <i class="fa-brands fa-google text-xl text-[#ea4335]" aria-hidden="true"></i>
+          <span>Continue with Google</span>
+        </button>
+        <button class="inline-flex min-h-13 cursor-pointer items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white text-base font-semibold text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 shadow-sm" type="button">
+          <i class="fa-brands fa-facebook text-xl text-[#1877f2]" aria-hidden="true"></i>
+          <span>Continue with Facebook</span>
+        </button>
+      </div>
+
+      <div class="my-7 flex items-center gap-3 text-base font-semibold uppercase text-slate-500 before:h-px before:flex-1 before:bg-slate-200 before:content-[''] after:h-px after:flex-1 after:bg-slate-200 after:content-['']">
+        <span>Or continue with email</span>
+      </div>
+
+      <form class="grid gap-6" [formGroup]="loginForm" (ngSubmit)="Loginuser()" novalidate>
+        <div class="grid gap-2.5">
+          <label class="text-base font-bold text-slate-700" for="login-email">Email Address</label>
+          <div class="relative">
+            <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg" aria-hidden="true"></i>
+            <input class="h-14 w-full rounded-xl border border-slate-300 bg-white pl-12 pr-4 text-base text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-100 shadow-sm" id="login-email" formControlName="email" type="email" placeholder="Enter your email" autocomplete="email" [attr.aria-invalid]="loginForm.controls.email.invalid && loginForm.controls.email.touched">
+          </div>
+          @if (loginForm.controls.email.touched && loginForm.controls.email.errors; as errors) {
+            @if (errors['required']) {
+              <small class="text-sm font-semibold text-red-600">Email is required.</small>
+            } @else if (errors['email']) {
+              <small class="text-sm font-semibold text-red-600">Enter a valid email address.</small>
+            }
+          }
+        </div>
+
+        <div class="grid gap-2.5">
+          <div class="flex items-center justify-between gap-3">
+            <label class="text-base font-bold text-slate-700" for="login-password">Password</label>
+            <a class="text-base font-semibold text-green-600 no-underline hover:text-green-700 hover:underline" href="/forgetPassword">Forgot Password?</a>
+          </div>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg" aria-hidden="true"></i>
+            <input class="h-14 w-full rounded-xl border border-slate-300 bg-white pl-12 pr-12 text-base text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-100 shadow-sm" id="login-password" formControlName="password" type="password" placeholder="Enter your password" autocomplete="current-password" [attr.aria-invalid]="loginForm.controls.password.invalid && loginForm.controls.password.touched">
+            <i class="fa-solid fa-eye absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg cursor-pointer" aria-hidden="true"></i>
+          </div>
+          @if (loginForm.controls.password.touched && loginForm.controls.password.hasError('required')) {
+            <small class="text-sm font-semibold text-red-600">Password is required.</small>
+          }
+        </div>
+
+        <label class="flex cursor-pointer items-center gap-3 text-base font-semibold text-slate-600">
+          <input class="h-5 w-5 rounded border-slate-300 accent-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" name="remember" type="checkbox">
+          <span>Keep me signed in</span>
+        </label>
+
+        <button class="inline-flex min-h-14 cursor-pointer items-center justify-center rounded-xl border-0 bg-green-600 text-lg font-bold text-white shadow-[0_4px_14px_rgba(22,163,74,0.3)] transition-colors hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 disabled:cursor-not-allowed disabled:opacity-60" type="submit" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Signing In...' : 'Sign In' }}
+        </button>
+      </form>
+
+      <p class="mb-0 mt-8 border-t border-slate-200 pt-6 text-center text-base font-semibold text-slate-600">
+        New to FreshCart?
+        <a class="ml-1 font-bold text-green-600 no-underline hover:text-green-700 hover:underline" href="/register">Create an account</a>
+      </p>
+    </section>
+  </div>
+</main>

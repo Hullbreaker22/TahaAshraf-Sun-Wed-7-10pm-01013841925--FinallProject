@@ -1,0 +1,176 @@
+<main class="min-h-[70vh] px-4 py-10 text-[#344054] sm:px-6 sm:py-14">
+  <div class="container max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 p-4">
+    
+    <!-- الجنب الشمال (معلومات الترحيب والمميزات - زي ما هو) -->
+    <section class="order-2 min-[900px]:order-1 space-y-6" aria-labelledby="welcome-title">
+      <div class="space-y-3">
+        <h1 id="welcome-title" class="m-0 text-4xl font-bold leading-tight text-[#344054]">
+          Welcome to <span class="text-green-600">FreshCart</span>
+        </h1>
+        <p class="text-xl font-medium leading-relaxed text-gray-600">
+          Join thousands of happy customers who enjoy fresh groceries delivered right to their doorstep.
+        </p>
+      </div>
+
+      <ul class="mb-6 mt-0 grid list-none gap-5 p-0">
+        <li class="flex items-center gap-4">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-green-100 text-base text-green-600" aria-hidden="true">
+            <i class="fa-solid fa-star"></i>
+          </span>
+          <div>
+            <h2 class="m-0 text-lg font-bold leading-6 text-slate-900">Premium Quality</h2>
+            <p class="m-0 mt-0.5 text-base font-normal text-gray-600 leading-relaxed">Premium quality products sourced from trusted suppliers.</p>
+          </div>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-green-100 text-base text-green-600" aria-hidden="true">
+            <i class="fa-solid fa-truck"></i>
+          </span>
+          <div>
+            <h2 class="m-0 text-lg font-bold leading-6 text-slate-800">Fast Delivery</h2>
+            <p class="m-0 mt-0.5 text-base font-normal text-gray-600 leading-relaxed">Same-day delivery available in most areas.</p>
+          </div>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-green-100 text-base text-green-600" aria-hidden="true">
+            <i class="fa-solid fa-shield-halved"></i>
+          </span>
+          <div>
+            <h2 class="m-0 text-lg font-bold leading-6 text-slate-800">Secure Shopping</h2>
+            <p class="m-0 mt-0.5 text-base font-normal text-gray-600 leading-relaxed">Your data and payments are completely secure.</p>
+          </div>
+        </li>
+      </ul>
+
+      <figure class="m-0 rounded-xl border border-slate-200 p-5 shadow-sm bg-white">
+        <figcaption class="mb-3 flex items-center gap-3">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-lime-400 text-xl text-white" aria-hidden="true">
+            <i class="fa-solid fa-user"></i>
+          </span>
+          <span class="grid gap-0.5">
+            <span class="text-base font-bold text-slate-800">Sarah Johnson</span>
+            <span class="text-base leading-none tracking-wider text-yellow-400" aria-label="5 out of 5 stars">★★★★★</span>
+          </span>
+        </figcaption>
+        <blockquote class="m-0 text-base italic leading-relaxed text-slate-700 font-medium">
+          "FreshCart has transformed my shopping experience. The quality of the products is outstanding, and the delivery is always on time. Highly recommend!"
+        </blockquote>
+      </figure>
+    </section>
+
+    <!-- الجنب اليمين (فورم التسجيل - بخطوط أكبر وأوضح) -->
+    <section class="order-1 rounded-xl border border-slate-200 bg-white px-7 pb-9 pt-7 shadow-[0_6px_20px_rgba(16,24,40,0.08)] min-[900px]:order-2" aria-labelledby="register-title">
+      <header class="mb-6 text-center">
+        <h2 id="register-title" class="m-0 text-3xl font-bold leading-snug text-[#344054]">Create Your Account</h2>
+        <p class="mb-0 mt-1.5 text-base text-slate-600">Start your fresh journey with us today</p>
+      </header>
+
+      <div class="grid grid-cols-2 gap-3" aria-label="Sign up with a social account">
+        <button class="inline-flex cursor-pointer min-h-11 items-center justify-center gap-2.5 rounded-lg border border-slate-300 bg-white text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" type="button">
+          <i class="fa-brands fa-google text-base text-[#db4437]" aria-hidden="true"></i>
+          <span>Google</span>
+        </button>
+        <button class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2.5 rounded-lg border border-slate-300 bg-white text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" type="button">
+          <i class="fa-brands fa-facebook text-base text-[#1877f2]" aria-hidden="true"></i>
+          <span>Facebook</span>
+        </button>
+      </div>
+
+      <div class="my-5 flex items-center gap-3 text-sm text-slate-500 before:h-px before:flex-1 before:bg-slate-200 before:content-[''] after:h-px after:flex-1 after:bg-slate-200 after:content-['']" aria-hidden="true"><span>or</span></div>
+
+      <form class="grid gap-5" [formGroup]="registerForm" (ngSubmit)="Registeruser()" novalidate>
+        <div class="grid gap-1.5">
+          <label class="text-sm font-semibold text-slate-700" for="register-name">Name<span aria-hidden="true">*</span></label>
+          <input class="h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 text-sm text-slate-700 outline-none transition focus:border-green-600 focus:ring-3 focus:ring-green-100 placeholder:text-slate-400" id="register-name" formControlName="name" type="text" placeholder="Ali" autocomplete="name" [attr.aria-invalid]="registerForm.controls.name.invalid && registerForm.controls.name.touched">
+          @if (registerForm.controls.name.touched && registerForm.controls.name.errors; as errors) {
+            @if (errors['required']) {
+              <small class="text-xs text-red-600 font-semibold">Name is required.</small>
+            } @else if (errors['minlength'] || errors['maxlength'] || errors['pattern']) {
+              <small class="text-xs text-red-600 font-semibold">Enter a valid name (3–20 characters, starting each name with a capital letter).</small>
+            }
+          }
+        </div>
+
+        <div class="grid gap-1.5">
+          <label class="text-sm font-semibold text-slate-700" for="register-email">Email<span aria-hidden="true">*</span></label>
+          <input  class="h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 text-sm text-slate-700 outline-none transition focus:border-green-600 focus:ring-3 focus:ring-green-100 placeholder:text-slate-400" id="register-email" formControlName="email" type="email" placeholder="ali@example.com" autocomplete="email" [attr.aria-invalid]="registerForm.controls.email.invalid && registerForm.controls.email.touched">
+          @if (registerForm.controls.email.touched && registerForm.controls.email.errors; as errors) {
+            @if (errors['required']) {
+              <small class="text-xs text-red-600 font-semibold">Email is required.</small>
+            } @else if (errors['email']) {
+              <small class="text-xs text-red-600 font-semibold">Enter a valid email address.</small>
+            }
+          }
+        </div>
+
+        <div class="grid gap-1.5">
+          <label class="text-sm font-semibold text-slate-700" for="register-password">Password<span aria-hidden="true">*</span></label>
+          <input class="h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 text-sm text-slate-700 outline-none transition focus:border-green-600 focus:ring-3 focus:ring-green-100 placeholder:text-slate-400" id="register-password" formControlName="password" type="password" placeholder="create a strong password" autocomplete="new-password" [attr.aria-invalid]="registerForm.controls.password.invalid && registerForm.controls.password.touched">
+          @if (registerForm.controls.password.touched && registerForm.controls.password.errors; as errors) {
+            @if (errors['required']) {
+              <small class="text-xs text-red-600 font-semibold">Password is required.</small>
+            } @else if (errors['pattern']) {
+              <small class="text-xs text-red-600 font-semibold">Use at least 8 characters with uppercase and lowercase letters, a number, and a symbol.</small>
+            }
+          }
+          <div class="flex items-center gap-2 text-xs text-slate-700 mt-1" [attr.aria-label]="'Password strength: ' + passwordStrength().label">
+            <span class="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-200">
+              <span class="block h-full rounded-full transition-all duration-300" [style.width.%]="passwordStrength().percentage" [style.background-color]="passwordStrength().color"></span>
+            </span>
+            <span class="font-semibold text-xs">{{ passwordStrength().label }}</span>
+          </div>
+          <small class="text-xs text-slate-500">Must be at least 8 characters with numbers and symbols.</small>
+        </div>
+
+        <div class="grid gap-1.5">
+          <label class="text-sm font-semibold text-slate-700" for="register-confirm-password">Confirm Password<span aria-hidden="true">*</span></label>
+          <input class="h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 text-sm text-slate-700 outline-none transition focus:border-green-600 focus:ring-3 focus:ring-green-100 placeholder:text-slate-400" id="register-confirm-password" formControlName="rePassword" type="password" placeholder="confirm your password" autocomplete="new-password" [attr.aria-invalid]="registerForm.controls.rePassword.invalid && registerForm.controls.rePassword.touched || registerForm.hasError('passwordMismatch') && registerForm.controls.rePassword.touched">
+          @if (registerForm.controls.rePassword.touched && registerForm.controls.rePassword.errors; as errors) {
+            @if (errors['required']) {
+              <small class="text-xs text-red-600 font-semibold">Please confirm your password.</small>
+            } @else if (errors['pattern']) {
+              <small class="text-xs text-red-600 font-semibold">Enter a password with uppercase and lowercase letters, a number, and a symbol.</small>
+            }
+          } @else if (registerForm.controls.rePassword.touched && registerForm.hasError('passwordMismatch')) {
+            <small class="text-xs text-red-600 font-semibold">Passwords do not match.</small>
+          }
+        </div>
+
+        <div class="grid gap-1.5">
+          <label class="text-sm font-semibold text-slate-700" for="register-phone">Phone Number<span aria-hidden="true">*</span></label>
+          <input class="h-11 w-full rounded-lg border border-slate-300 bg-white px-3.5 text-sm text-slate-700 outline-none transition focus:border-green-600 focus:ring-3 focus:ring-green-100 placeholder:text-slate-400" id="register-phone" name="phone" type="tel" placeholder="+1 234 567 8900" formControlName="phone" autocomplete="tel" [attr.aria-invalid]="registerForm.controls.phone.invalid && registerForm.controls.phone.touched">
+          @if (registerForm.controls.phone.touched && registerForm.controls.phone.hasError('required')) {
+            <small class="text-xs text-red-600 font-semibold">Phone number is required.</small>
+          }
+        </div>
+
+        <label class="flex items-start gap-2.5 text-sm leading-relaxed text-slate-700">
+          <input class="mt-1 h-4 w-4 shrink-0 accent-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" formControlName="terms" type="checkbox" [attr.aria-invalid]="registerForm.controls.terms.invalid && registerForm.controls.terms.touched">
+          <span class="min-w-0">
+            I agree to the <a class="text-green-600 font-semibold no-underline hover:underline" href="#" (click)="$event.preventDefault()">Terms of Service</a> and
+            <a class="text-green-600 font-semibold no-underline hover:underline" href="#" (click)="$event.preventDefault()">Privacy Policy</a><span aria-hidden="true">*</span>
+          </span>
+        </label>
+        @if (registerForm.controls.terms.touched && registerForm.controls.terms.invalid) {
+          <small class="-mt-3 text-xs text-red-600 font-semibold">You must agree to the terms to continue.</small>
+        }
+
+        @if (errorMessage()) {
+          <p class="m-0 text-sm font-semibold text-red-600" role="alert">{{ errorMessage() }}</p>
+        }
+        @if (successMessage()) {
+          <p class="m-0 text-sm font-semibold text-green-700" role="status">{{ successMessage() }}</p>
+        }
+
+        <button class="flex min-h-11 cursor-pointer items-center justify-center gap-2.5 rounded-lg border-0 bg-green-600 text-sm font-bold text-white transition-colors hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 disabled:cursor-not-allowed disabled:opacity-60 shadow-sm" type="submit" [disabled]="isSubmitting()">
+          <i class="fa-solid fa-user-plus text-base" aria-hidden="true"></i>
+          <span>{{ isSubmitting() ? 'Creating Account...' : 'Create My Account' }}</span>
+        </button>
+      </form>
+
+      <p class="mb-0 mt-6 border-t border-slate-200 pt-5 text-center text-sm text-slate-600">
+        Already have an account? <a class="text-green-600 font-semibold no-underline hover:underline" href="/login">Sign In</a>
+      </p>
+    </section>
+  </div>
+</main>

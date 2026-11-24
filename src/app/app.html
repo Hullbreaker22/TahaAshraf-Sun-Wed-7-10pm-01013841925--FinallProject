@@ -1,0 +1,41 @@
+
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+
+
+<ngx-spinner
+  bdColor="rgba(15, 23, 42, 0.45)"
+  size="medium"
+  color="transparent"
+  [fullScreen]="true"
+>
+  <div class="relative z-50 flex flex-col items-center justify-center rounded-3xl border border-emerald-100/80 bg-white/95 px-8 py-7 text-center shadow-2xl shadow-emerald-950/15">
+    
+    <div class="relative flex h-20 w-20 items-center justify-center">
+      <div
+        class="fc-spinner-ring absolute inset-0 rounded-full border-[3px] border-transparent border-t-[#16A249] border-r-emerald-300"
+      ></div>
+
+      <div class="absolute inset-2 rounded-full border border-emerald-100 bg-emerald-50/70"></div>
+
+      <div class="fc-spinner-core relative flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-[#16A249] to-[#16843F] text-white shadow-md shadow-emerald-600/25">
+        <i class="fa-solid fa-basket-shopping text-lg" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <p class="text-sm font-bold tracking-wide text-gray-800">
+        FreshCart
+      </p>
+      <p class="mt-0.5 text-xs font-medium text-gray-500">
+        Fetching fresh items for you...
+      </p>
+    </div>
+
+    <div class="mt-4 h-1.5 w-36 overflow-hidden rounded-full bg-emerald-100">
+      <div class="fc-shimmer-bar h-full w-14 rounded-full bg-linear-to-r from-[#16A249] via-emerald-400 to-[#16A249]"></div>
+    </div>
+
+  </div>
+</ngx-spinner>

@@ -1,0 +1,37 @@
+@keyframes fc-spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fc-pulse-soft {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes fc-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+.fc-spinner-ring {
+  animation: fc-spin-slow 1.15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.fc-spinner-core {
+  animation: fc-pulse-soft 1.8s ease-in-out infinite;
+}
+
+.fc-shimmer-bar {
+  animation: fc-shimmer 1.4s ease-in-out infinite;
+}
